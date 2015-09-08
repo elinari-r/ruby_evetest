@@ -1,0 +1,64 @@
+#can write an array for each race
+#with all of their caps/supers/dreads/titans
+#then use a proc/lambda to iterate over each array and run the same code
+#and puts all a pilot's ships, with REDACTED instead of the caps/supers/etc.
+
+#the REDACTED arrays
+amarr = ["archon", "revelation", "aeon", "avatar"]
+gallente = ["thanatos", "moros", "nyx", "erebus"]
+caldari = ["chimera", "phoenix", "wyvern", "leviathan"]
+minmatar = ["nidhoggur", "nagalfar", "hel", "ragnarok"]
+
+#the pilot array
+pilot = {
+    Elinari: "nyx"
+}
+
+#the proc/lambda
+
+
+#getting input from the user
+puts "Welcome to the Ship Identification and Registration Index. Please enter your name, pilot."
+user = gets.chomp
+puts "How may I help you, #{user}? You can display, add, update or delete information."
+
+choice = gets.chomp.downcase
+case choice
+when "add"
+    puts "Please enter the pilot to be registered."
+    name = gets.chomp
+    if pilot[name.to_sym].nil?
+        puts "Please register the first ship."
+        ship = gets.chomp
+        pilot[name.to_sym] = ship
+        puts "Pilot and ship have been registered."
+    else
+        puts "That pilot is already registered."
+end
+when "update"
+    puts "Which pilot do you have new information for?"
+    name = gets.chomp
+    if pilot[name.to_sym].nil?
+        puts "That pilot is not registered."
+    else
+        puts "Please register the first ship."
+        ship = gets.chomp
+        pilot[name.to_sym] = ship
+        puts "Information for #{name} has been updated."
+end
+when "delete"
+    puts "Which pilot's entry do you wish to delete?"
+    name = gets.chomp
+    if pilot[name.to_sym].nil?
+        puts "That pilot is not registered."
+    else
+        pilot.delete(name.to_sym)
+    puts "Entry for #{name} has been removed."
+end
+when "display"
+    pilot.each do |name, ship|
+    puts "#{name}: #{ship}"
+end
+else
+    "I'm sorry, I did not understand your command. Type search, add, update or delete."
+end
